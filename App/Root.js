@@ -6,10 +6,26 @@ import React, {
 } from 'react-native';
 
 import styles from './Styles/RootStyle'
+import Button from './Components/Button'
 
 export default class Root extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    // Bind Functions
+    this.pressedNumber = this.pressedNumber.bind(this);
+    this.pressedClrAll = this.pressedClrAll.bind(this);
+    this.pressedClearLast = this.pressedClearLast.bind(this);
+    this.pressedBackspace = this.pressedBackspace.bind(this);
+    this.pressedAdd = this.pressedAdd.bind(this);
+    this.pressedDoubleZero = this.pressedDoubleZero.bind(this);
+    this.pressedDiscount = this.pressedDiscount.bind(this);
+  }
+
   pressedNumber(number) {
-    console.log("Pressed number: " + number);
+    console.log(number);
+    // console.log("Pressed number: " + number);
     alert("Pressed number: " + number);
   }
 
@@ -38,8 +54,6 @@ export default class Root extends React.Component {
   }
 
   render() {
-    let button_opacity = 0.5;
-
     return (
       <View style={styles.mainContainer}>
         <View style={styles.toolbar}>
@@ -58,66 +72,34 @@ export default class Root extends React.Component {
 
             {/* Top Row */}
             <View style={styles.row}>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 7)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>7</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 8)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>8</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 9)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>9</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.redButton]} onPress={this.pressedClrAll.bind()} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>Clr All</Text>
-              </TouchableOpacity>
+              <Button label='7' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='8' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='9' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='Clr All' style={[styles.button, styles.redButton]} onPress={this.pressedClrAll} />
             </View>
 
             {/* 2nd Row */}
             <View style={styles.row}>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 4)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>4</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 5)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>5</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 6)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>6</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.redButton]} onPress={this.pressedClearLast.bind()} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>Clr Last</Text>
-              </TouchableOpacity>
+              <Button label='4' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='5' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='6' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='Clr Last' style={[styles.button, styles.redButton]} onPress={this.pressedClearLast} />
             </View>
 
             {/* 3rd Row */}
             <View style={styles.row}>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 1)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 2)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>2</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 3)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>3</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.redButton]} onPress={this.pressedBackspace.bind()} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>Bksp</Text>
-              </TouchableOpacity>
+              <Button label='1' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='2' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='3' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='Bksp' style={[styles.button, styles.redButton]} onPress={this.pressedBackspace} />
             </View>
 
             {/* 4th Row */}
             <View style={styles.row}>
-              <TouchableOpacity style={styles.button} onPress={this.pressedNumber.bind(this, 0)} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>0</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.pressedDoubleZero.bind()} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>.00</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.greenButton]} onPress={this.pressedAdd.bind()} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>Add</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.blueButton]} onPress={this.pressedDiscount.bind()} activeOpacity={button_opacity}>
-                <Text style={styles.buttonText}>Disc</Text>
-              </TouchableOpacity>
+              <Button label='0' style={styles.button} onPress={this.pressedNumber} />
+              <Button label='.00' style={styles.button} onPress={this.pressedDoubleZero} />
+              <Button label='Add' style={[styles.button, styles.greenButton]} onPress={this.pressedAdd} />
+              <Button label='Disc' style={[styles.button, styles.blueButton]} onPress={this.pressedDiscount} />
             </View>
 
           </View>

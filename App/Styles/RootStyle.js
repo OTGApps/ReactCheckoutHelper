@@ -33,7 +33,6 @@ export default StyleSheet.create({
     flex:1,
   },
   bottomContent: {
-    backgroundColor:'red',
     flex:1,
   },
   row: {
