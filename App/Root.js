@@ -45,10 +45,7 @@ export default class Root extends React.Component {
   measureListHolderComponent() {
     this.refs.listHolder.measure((ox, oy, width, height) => {
       // TODO - 52?
-      this.setState({listTopPadding: height - 52})
-      this.refs.list.setNativeProps({
-        paddingTop: this.state.listTopPadding
-      });
+      this.setState({listTopPadding: height - 52});
     });
   }
 
@@ -170,7 +167,7 @@ export default class Root extends React.Component {
             <ListView
               dataSource={this.state.dataSource}
               renderRow={this.renderItem.bind(this)}
-              style={styles.listView}
+              style={[styles.listView, {paddingTop: this.state.listTopPadding}]}
               ref="list"
               onContentSizeChange={(newSize)=>{
                 console.log(newSize);
