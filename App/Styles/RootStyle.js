@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import Fonts from './Fonts'
 
 export default StyleSheet.create({
   mainContainer: {
@@ -43,6 +44,7 @@ export default StyleSheet.create({
   },
   liText: {
     color: '#333',
+    fontFamily: Fonts.monospace,
     fontSize: 16,
   },
   topRight: {
