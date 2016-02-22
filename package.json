@@ -6,8 +6,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "lodash": "^4.0.0",
     "react-native": "^0.20.0",
     "react-native-navbar": "^1.2.1",
-    "lodash": "^4.0.0"
+    "react-native-picker": "^2.0.1"
   }
 }

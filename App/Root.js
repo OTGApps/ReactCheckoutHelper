@@ -9,6 +9,7 @@ import React, {
 import styles from './Styles/RootStyle'
 import Button from './Components/Button'
 import ListItem from './Components/ListItem'
+import DiscountPicker from './Components/DiscountPicker'
 import _ from 'lodash'
 
 export default class Root extends React.Component {
