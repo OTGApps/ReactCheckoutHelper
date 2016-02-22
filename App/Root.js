@@ -92,8 +92,7 @@ export default class Root extends React.Component {
     console.log("Scrolling to bottom");
     let ul = this.refs.list;
     console.log(ul.scrollProperties);
-    // ul.scrollTo({y: ul.scrollProperties})
-    // ul.scrollTo({y: ul.scrollHeight + this.state.listTopPadding});
+    ul.scrollTo({y: ul.scrollProperties.contentLength - 52});
   }
 
   renderItem(item) {
