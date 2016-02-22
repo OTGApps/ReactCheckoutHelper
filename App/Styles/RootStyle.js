@@ -24,9 +24,26 @@ export default StyleSheet.create({
     flex:1,
     flexDirection:'row',
   },
-  topLeft: {
+  listView: {
+    backgroundColor: 'red',
     backgroundColor:'yellow',
     flex:1,
+  },
+  li: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#eee',
+    borderColor: 'transparent',
+    borderWidth: 1,
+    paddingLeft: 16,
+    paddingTop: 14,
+    paddingBottom: 16,
+  },
+  liContainer: {
+    flex: 2,
+  },
+  liText: {
+    color: '#333',
+    fontSize: 16,
   },
   topRight: {
     backgroundColor:'orange',
