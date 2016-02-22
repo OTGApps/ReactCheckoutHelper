@@ -9,6 +9,7 @@ import React, {
 import styles from './Styles/RootStyle'
 import Button from './Components/Button'
 import ListItem from './Components/ListItem'
+import _ from 'lodash'
 
 export default class Root extends React.Component {
 
@@ -36,7 +37,21 @@ export default class Root extends React.Component {
 
   componentDidMount() {
     this.setDataSource();
+
+    // https://github.com/facebook/react-native/issues/953
+    requestAnimationFrame(this.measureListHolderComponent.bind(this));
   }
+
+  measureListHolderComponent() {
+    this.refs.listHolder.measure((ox, oy, width, height) => {
+      // TODO - 52?
+      this.setState({listTopPadding: height - 52})
+      this.refs.list.setNativeProps({
+        paddingTop: this.state.listTopPadding
+      });
+    });
+  }
+
   resetDataSource() {
     console.log("resetDataSource");
     this.setState({rows: [0]});
@@ -74,8 +89,14 @@ export default class Root extends React.Component {
       this.scrollToBottom();
     }
   }
+
+  // TODO - this doesn't work.
   scrollToBottom() {
     console.log("Scrolling to bottom");
+    let ul = this.refs.list;
+    console.log(ul.scrollProperties);
+    // ul.scrollTo({y: ul.scrollProperties})
+    // ul.scrollTo({y: ul.scrollHeight + this.state.listTopPadding});
   }
 
   renderItem(item) {
@@ -85,29 +106,53 @@ export default class Root extends React.Component {
   }
 
   pressedNumber(number) {
-    console.log(number);
-    // console.log("Pressed number: " + number);
-    alert("Pressed number: " + number);
+    console.log("Pressed number: " + number);
+
+    let rows = this.state.rows;
+    rows.push(parseInt(rows.pop() + "" + number));
+    this.setRows(rows);
   }
 
   pressedClrAll() {
     console.log("Pressed Clear All");
+    this.resetDataSource();
   }
 
   pressedClearLast() {
     console.log("Pressed Clear Last");
+
+    let rows = this.state.rows;
+    rows.pop();
+    rows.pop();
+    rows.push(0)
+    this.setRows(rows);
   }
 
   pressedBackspace() {
     console.log("Pressed Backspace");
+
+    let rows = this.state.rows;
+    let last = parseInt(rows.pop().toString().slice(0, -1));
+    if (isNaN(last)) { last = 0 }
+    rows.push(last);
+    this.setRows(rows);
   }
 
   pressedAdd() {
     console.log("Pressed Add");
+
+    let rows = this.state.rows;
+    rows.push(0);
+    this.setRows(rows);
   }
 
   pressedDoubleZero() {
     console.log("Pressed Double Zero");
+
+    let rows = this.state.rows;
+    rows.push(parseInt(rows.pop() + "00"));
+    rows.push(0);
+    this.setRows(rows);
   }
 
   pressedDiscount() {
@@ -128,6 +173,9 @@ export default class Root extends React.Component {
               style={styles.listView}
               ref="list"
               onContentSizeChange={(newSize)=>{
+                console.log(newSize);
+                this.setState({listScrollBottomY: newSize})
+                this.scrollToBottom();
               }} />
             <View style={styles.topRight}>
               <Text>This is the top right content</Text>
