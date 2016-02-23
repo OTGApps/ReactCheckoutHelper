@@ -93,6 +93,7 @@ export default class Root extends React.Component {
     console.log("Scrolling to bottom");
     let ul = this.refs.list;
     console.log(ul.scrollProperties);
+    console.log("Scrolling to:", ul.scrollProperties.contentLength - 52);
     ul.scrollTo({y: ul.scrollProperties.contentLength - 52});
   }
 
@@ -100,6 +101,19 @@ export default class Root extends React.Component {
     return (
       <ListItem item={item} onPress={() => {}} />
     );
+  }
+
+  // Button Factory
+  renderButton(text, additionalStyles=null, onPress=null) {
+    let buttonStyles = [styles.button]
+    if (additionalStyles !== null) {
+      buttonStyles.push(additionalStyles);
+    }
+    let pressEvent = ((onPress == null) ? this.pressedNumber : onPress )
+
+    return(
+      <Button label={text} style={buttonStyles} onPress={pressEvent} />
+    )
   }
 
   pressedNumber(number) {
@@ -170,8 +184,6 @@ export default class Root extends React.Component {
               style={[styles.listView, {paddingTop: this.state.listTopPadding}]}
               ref="list"
               onContentSizeChange={(newSize)=>{
-                console.log(newSize);
-                this.setState({listScrollBottomY: newSize})
                 this.scrollToBottom();
               }} />
             <View style={styles.topRight}>
@@ -182,34 +194,34 @@ export default class Root extends React.Component {
 
             {/* Top Row */}
             <View style={styles.row}>
-              <Button label='7' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='8' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='9' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='Clr All' style={[styles.button, styles.redButton]} onPress={this.pressedClrAll} />
+              { this.renderButton('7') }
+              { this.renderButton('8') }
+              { this.renderButton('9') }
+              { this.renderButton('Clr All', styles.redButton, this.pressedClrAll) }
             </View>
 
             {/* 2nd Row */}
             <View style={styles.row}>
-              <Button label='4' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='5' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='6' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='Clr Last' style={[styles.button, styles.redButton]} onPress={this.pressedClearLast} />
+              { this.renderButton('4') }
+              { this.renderButton('5') }
+              { this.renderButton('6') }
+              { this.renderButton('Clr Last', styles.redButton, this.pressedClearLast) }
             </View>
 
             {/* 3rd Row */}
             <View style={styles.row}>
-              <Button label='1' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='2' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='3' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='Bksp' style={[styles.button, styles.redButton]} onPress={this.pressedBackspace} />
+              { this.renderButton('1') }
+              { this.renderButton('2') }
+              { this.renderButton('3') }
+              { this.renderButton('Bksp', styles.redButton, this.pressedBackspace) }
             </View>
 
             {/* 4th Row */}
             <View style={styles.row}>
-              <Button label='0' style={styles.button} onPress={this.pressedNumber} />
-              <Button label='.00' style={styles.button} onPress={this.pressedDoubleZero} />
-              <Button label='Add' style={[styles.button, styles.greenButton]} onPress={this.pressedAdd} />
-              <Button label='Disc' style={[styles.button, styles.blueButton]} onPress={this.pressedDiscount} />
+              { this.renderButton('0') }
+              { this.renderButton('.00', null, this.pressedDoubleZero) }
+              { this.renderButton('Add', styles.greenButton, this.pressedAdd) }
+              { this.renderButton('Disc', styles.blueButton, this.pressedDiscount) }
             </View>
 
           </View>
