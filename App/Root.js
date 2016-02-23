@@ -5,15 +5,16 @@ import React, {
   View,
   ListView,
 } from 'react-native';
+import NavigationBar from 'react-native-navbar';
 
 import styles from './Styles/RootStyle'
 import _ from 'lodash'
 
+// My Components
 import Button from './Components/Button'
 import ListItem from './Components/ListItem'
 import DiscountPicker from './Components/DiscountPicker'
 import SettingsButton from './Components/SettingsButton'
-import NavigationBar from 'react-native-navbar';
 
 export default class Root extends React.Component {
 
@@ -22,7 +23,7 @@ export default class Root extends React.Component {
 
     // State
     this.state = {
-      rows: [123, 146, 2649],
+      rows: [0],
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
