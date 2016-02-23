@@ -7,10 +7,13 @@ import React, {
 } from 'react-native';
 
 import styles from './Styles/RootStyle'
+import _ from 'lodash'
+
 import Button from './Components/Button'
 import ListItem from './Components/ListItem'
 import DiscountPicker from './Components/DiscountPicker'
-import _ from 'lodash'
+import SettingsButton from './Components/SettingsButton'
+import NavigationBar from 'react-native-navbar';
 
 export default class Root extends React.Component {
 
@@ -23,7 +26,8 @@ export default class Root extends React.Component {
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      })
+      }),
+      title: "Checkout Helper",
     };
 
     // Bind Functions
@@ -153,17 +157,28 @@ export default class Root extends React.Component {
     console.log("Pressed Add");
 
     let rows = this.state.rows;
-    rows.push(0);
-    this.setRows(rows);
+    console.log(rows);
+    if (this.canAddNumberToList(rows)) {
+      rows.push(0);
+      this.setRows(rows);
+    }
+  }
+
+  // Determines if an operation should succeed or not
+  canAddNumberToList() {
+    let rows = this.state.rows;
+    return rows[rows.length-1] != 0
   }
 
   pressedDoubleZero() {
     console.log("Pressed Double Zero");
 
     let rows = this.state.rows;
-    rows.push(parseInt(rows.pop() + "00"));
-    rows.push(0);
-    this.setRows(rows);
+    if (this.canAddNumberToList()) {
+      rows.push(parseInt(rows.pop() + "00"));
+      rows.push(0);
+      this.setRows(rows);
+    }
   }
 
   pressedDiscount() {
@@ -171,11 +186,20 @@ export default class Root extends React.Component {
   }
 
   render() {
+    const leftButtonConfig = {
+      title: 'Next',
+      handler: () => alert('hello!'),
+    };
+
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.toolbar}>
-          <Text style={styles.toolbarTitle}>Checkout Helper</Text>
-        </View>
+        <NavigationBar
+          title={{title: this.state.title}}
+          leftButton={
+            <SettingsButton
+              style={{ marginLeft: 8 }}
+              onPress={() => alert('Pressed Settings Button')}/>}
+          tintColor="#CCC" />
         <View style={styles.content}>
           <View style={styles.topContent} ref="listHolder">
             <ListView

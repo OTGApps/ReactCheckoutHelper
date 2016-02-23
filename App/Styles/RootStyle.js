@@ -5,24 +5,12 @@ export default StyleSheet.create({
   mainContainer: {
     flex:1,
   },
-  toolbar: {
-      backgroundColor:'#CCCCCC',
-      paddingTop:30,
-      paddingBottom:10,
-      flexDirection:'row'
-  },
-  toolbarTitle: {
-      color:'#000',
-      textAlign:'center',
-      fontWeight:'bold',
-      flex:1
-  },
   content: {
     flex:1,
   },
   topContent: {
     backgroundColor:'blue',
-    flex:1,
+      flex:1,
     flexDirection:'row',
   },
   listView: {
