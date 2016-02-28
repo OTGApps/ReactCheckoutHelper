@@ -9,6 +9,7 @@
     "lodash": "^4.0.0",
     "react-native": "^0.20.0",
     "react-native-navbar": "^1.2.1",
-    "react-native-picker": "^2.0.1"
+    "react-native-picker": "^2.0.1",
+    "react-native-swipeout": "^2.0.12"
   }
 }
