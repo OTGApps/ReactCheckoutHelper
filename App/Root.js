@@ -28,7 +28,7 @@ export default class Root extends React.Component {
 
     // State
     this.state = {
-      rows: [0],
+      rows: [{cents: 0, discount:null}],
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -68,7 +68,7 @@ export default class Root extends React.Component {
   }
 
   convertCentsToDollars(cents, symbol = false) {
-    let converted_float = (cents/100).toFixed(2)
+    var converted_float = (cents/100).toFixed(2)
 
     if (symbol === true) {
       return "$" + converted_float
@@ -86,8 +86,8 @@ export default class Root extends React.Component {
   }
 
   setDataSource(scroll = false) {
-    let _this = this
-    object_rows = _.map(this.state.rows, function(n) { return {title: _this.convertCentsToDollars(n, true)} })
+    var _this = this
+    object_rows = _.map(this.state.rows, function(n) { return {title: _this.convertCentsToDollars(n.cents, true)} })
 
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(object_rows)
@@ -101,14 +101,14 @@ export default class Root extends React.Component {
   // TODO - this doesn't work.
   scrollToBottom() {
     console.log("Scrolling to bottom")
-    let ul = this.refs.list
+    var ul = this.refs.list
     console.log(ul.scrollProperties)
     console.log("Scrolling to:", ul.scrollProperties.contentLength - 48)
     ul.scrollTo({y: ul.scrollProperties.contentLength - 48})
   }
 
   renderItem(item, sectionID, rowID) {
-    let deleteButton = {
+    var deleteButton = {
       text: 'Delete',
       onPress: () => { console.log(item, sectionID, rowID) },
       type: 'delete',
@@ -134,13 +134,24 @@ export default class Root extends React.Component {
     )
   }
 
+  rowFactory(cents = 0, discount = null){
+    return {
+      cents: cents,
+      discount: discount,
+    }
+  }
+
+  subtotal(){
+
+  }
+
   // Button Factory
   renderButton(text, additionalStyles=null, onPress=null) {
-    let buttonStyles = [styles.button]
+    var buttonStyles = [styles.button]
     if (additionalStyles !== null) {
       buttonStyles.push(additionalStyles)
     }
-    let pressEvent = ((onPress == null) ? this.pressedNumber : onPress )
+    var pressEvent = ((onPress == null) ? this.pressedNumber : onPress )
 
     return(
       <Button label={text} style={buttonStyles} onPress={pressEvent} />
@@ -150,8 +161,9 @@ export default class Root extends React.Component {
   pressedNumber(number) {
     console.log("Pressed number: " + number)
 
-    let rows = this.state.rows
-    rows.push(parseInt(rows.pop() + "" + number))
+    var rows = this.state.rows
+    var popped = rows.pop()
+    rows.push(this.rowFactory(parseInt(popped.cents + "" + number), popped.discount))
     this.setRows(rows)
   }
 
@@ -163,47 +175,51 @@ export default class Root extends React.Component {
   pressedClearLast() {
     console.log("Pressed Clear Last")
 
-    let rows = this.state.rows
+    var rows = this.state.rows
     rows.pop()
     rows.pop()
-    rows.push(0)
+    rows.push(this.rowFactory())
     this.setRows(rows)
   }
 
   pressedBackspace() {
     console.log("Pressed Backspace")
 
-    let rows = this.state.rows
-    let last = parseInt(rows.pop().toString().slice(0, -1))
-    if (isNaN(last)) { last = 0 }
-    rows.push(last)
+    var rows = this.state.rows
+    var popped = rows.pop()
+    var lastCents = parseInt(popped.cents.toString().slice(0, -1))
+
+    if (isNaN(lastCents)) { lastCents = 0 }
+    rows.push(this.rowFactory(lastCents, popped.discount))
     this.setRows(rows)
   }
 
   pressedAdd() {
     console.log("Pressed Add")
 
-    let rows = this.state.rows
+    var rows = this.state.rows
     console.log(rows)
     if (this.canAddNumberToList(rows)) {
-      rows.push(0)
+      rows.push(this.rowFactory())
       this.setRows(rows)
     }
   }
 
   // Determines if an operation should succeed or not
   canAddNumberToList() {
-    let rows = this.state.rows
+    var rows = this.state.rows
     return rows[rows.length-1] != 0
   }
 
   pressedDoubleZero() {
     console.log("Pressed Double Zero")
 
-    let rows = this.state.rows
+    var rows = this.state.rows
     if (this.canAddNumberToList()) {
-      rows.push(parseInt(rows.pop() + "00"))
-      rows.push(0)
+      var popped = rows.pop()
+
+      rows.push(this.rowFactory(parseInt(popped.cents + "00"), popped.discount))
+      rows.push(this.rowFactory())
       this.setRows(rows)
     }
   }
