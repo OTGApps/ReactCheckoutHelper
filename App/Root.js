@@ -29,6 +29,7 @@ export default class Root extends React.Component {
     // State
     this.state = {
       rows: [{cents: 0, discount:null}],
+      subtotal: 0,
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -62,7 +63,10 @@ export default class Root extends React.Component {
 
   resetDataSource() {
     console.log("resetDataSource")
-    this.setState({rows: [0]})
+    this.setState({
+      rows: [this.rowFactory()],
+      subtotal: 0,
+    })
     this.setDataSource()
     this.scrollToBottom()
   }
@@ -79,7 +83,10 @@ export default class Root extends React.Component {
 
   setRows(rows) {
     this.setState({
-      rows: rows
+      rows: rows,
+    })
+    this.setState({
+      subtotal: this.subtotal(),
     })
 
     this.setDataSource(true)
@@ -142,7 +149,11 @@ export default class Root extends React.Component {
   }
 
   subtotal(){
-
+    var rows = this.state.rows
+    var mappedCents = _.map(rows, (n) => {
+      return n.cents
+    })
+    return _.sum(mappedCents)
   }
 
   // Button Factory
@@ -256,10 +267,13 @@ export default class Root extends React.Component {
             <View style={styles.topRight}>
               <View style={styles.subtotal}>
                 <Text style={styles.medium}>Subtotal:</Text>
-                <Text style={styles.largeMonospace}>$0.00</Text>
+                <Text style={styles.largeMonospace}>{this.convertCentsToDollars(this.state.subtotal, true)}</Text>
               </View>
               <View>
                 <Text>$4.95 Shipping: $4.95</Text>
+              </View>
+              <View>
+                <Text>Discounts: $4.95</Text>
               </View>
               <View>
                 <Text>6.75% Tax: $4.50</Text>
