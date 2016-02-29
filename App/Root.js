@@ -8,6 +8,7 @@ import React, {
 } from 'react-native'
 import NavigationBar from 'react-native-navbar'
 import Swipeout from 'react-native-swipeout'
+import Modal from 'react-native-modalbox'
 
 import styles from './Styles/RootStyle'
 import _ from 'lodash'
@@ -16,7 +17,9 @@ import _ from 'lodash'
 import Button from './Components/Button'
 import ListItem from './Components/ListItem'
 import DiscountPicker from './Components/DiscountPicker'
+import CloseButton from './Components/CloseButton'
 import SettingsButton from './Components/SettingsButton'
+import SettingsModal from './Components/SettingsModal'
 
 const ios = Platform.OS === 'ios'
 const android = Platform.OS === 'android'
@@ -259,6 +262,19 @@ export default class Root extends React.Component {
     console.log("Pressed Discount")
   }
 
+  onModalClose() {
+    console.log('Modal just closed');
+  }
+
+  onModalOpen() {
+    console.log('Modal just openned');
+  }
+
+  onModalClosingState(state) {
+    console.log('the open/close of the swipeToClose just changed');
+  }
+
+
   render() {
     const leftButtonConfig = {
       title: 'Next',
@@ -272,7 +288,7 @@ export default class Root extends React.Component {
           leftButton={
             <SettingsButton
               style={{ marginLeft: 8 }}
-              onPress={() => alert('Pressed Settings Button')}/>}
+              onPress={() => this.refs.settingsModal.open() }/>}
           tintColor="#CCC" />
         <View style={styles.content}>
           <View style={styles.topContent} ref="listHolder">
@@ -339,7 +355,18 @@ export default class Root extends React.Component {
             </View>
 
           </View>
-       </View>
+        </View>
+
+        <Modal style={[]} ref="settingsModal" swipeToClose={true} onClosed={this.onModalClose} onOpened={this.onModalOpen} onClosingState={this.onModalClosingState}>
+          <NavigationBar
+            title={{title: "Settings"}}
+            leftButton={
+              <CloseButton onPress={() => this.refs.settingsModal.open() }/>
+            }
+            tintColor="#CCC" />
+          <SettingsModal />
+        </Modal>
+
       </View>
     )
   }
