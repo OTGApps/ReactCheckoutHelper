@@ -55,6 +55,8 @@ export default class Root extends React.Component {
 
     // https://github.com/facebook/react-native/issues/953
     requestAnimationFrame(this.measureListHolderComponent.bind(this))
+
+    // this.refs.settingsModal.open()
   }
 
   measureListHolderComponent() {
@@ -357,11 +359,11 @@ export default class Root extends React.Component {
           </View>
         </View>
 
-        <Modal style={[]} ref="settingsModal" swipeToClose={true} onClosed={this.onModalClose} onOpened={this.onModalOpen} onClosingState={this.onModalClosingState}>
+        <Modal ref="settingsModal" swipeToClose={false} onClosed={this.onModalClose} onOpened={this.onModalOpen} onClosingState={this.onModalClosingState}>
           <NavigationBar
             title={{title: "Settings"}}
             leftButton={
-              <CloseButton onPress={() => this.refs.settingsModal.open() }/>
+              <CloseButton onPress={() => this.refs.settingsModal.close() }/>
             }
             tintColor="#CCC" />
           <SettingsModal />
