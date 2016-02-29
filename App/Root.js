@@ -13,6 +13,9 @@ import Modal from 'react-native-modalbox'
 import styles from './Styles/RootStyle'
 import _ from 'lodash'
 
+// My Models
+import PriceObject from './Models/PriceObject'
+
 // My Components
 import Button from './Components/Button'
 import ListItem from './Components/ListItem'
@@ -31,7 +34,7 @@ export default class Root extends React.Component {
 
     // State
     this.state = {
-      rows: [{cents: 0, discount:null}],
+      rows: [this.rowFactory()],
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -147,10 +150,7 @@ export default class Root extends React.Component {
   }
 
   rowFactory(cents = 0, discount = null){
-    return {
-      cents: cents,
-      discount: discount,
-    }
+    return new PriceObject(cents, discount)
   }
 
   calculateObject(){
