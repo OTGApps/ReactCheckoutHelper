@@ -29,7 +29,6 @@ export default class Root extends React.Component {
     // State
     this.state = {
       rows: [{cents: 0, discount:null}],
-      subtotal: 0,
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -48,6 +47,7 @@ export default class Root extends React.Component {
   }
 
   componentDidMount() {
+    this.calculateAndSet()
     this.setDataSource()
 
     // https://github.com/facebook/react-native/issues/953
@@ -65,8 +65,8 @@ export default class Root extends React.Component {
     console.log("resetDataSource")
     this.setState({
       rows: [this.rowFactory()],
-      subtotal: 0,
     })
+    this.setState(this.calculateObject())
     this.setDataSource()
     this.scrollToBottom()
   }
@@ -85,9 +85,6 @@ export default class Root extends React.Component {
     this.setState({
       rows: rows,
     })
-    this.setState({
-      subtotal: this.subtotal(),
-    })
 
     this.setDataSource(true)
   }
@@ -99,6 +96,9 @@ export default class Root extends React.Component {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(object_rows)
     })
+
+    // Calculates everything and sets state.
+    this.calculateAndSet()
 
     if (scroll === true) {
       this.scrollToBottom()
@@ -146,6 +146,26 @@ export default class Root extends React.Component {
       cents: cents,
       discount: discount,
     }
+  }
+
+  calculateObject(){
+    var subtotal = this.subtotal()
+    var shipping = 0
+    var itemDiscounts = 0
+    var overallDiscount = 0
+    var tax = 0
+
+    return {
+      subtotal: subtotal,
+      shipping: shipping,
+      itemDiscounts: itemDiscounts,
+      overallDiscount: overallDiscount,
+      tax: tax,
+    }
+  }
+
+  calculateAndSet() {
+    this.setState(this.calculateObject())
   }
 
   subtotal(){
