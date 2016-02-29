@@ -244,6 +244,8 @@ export default class Root extends React.Component {
               </View>
               <View>
                 <Text>$4.95 Shipping: $4.95</Text>
+              </View>
+              <View>
                 <Text>6.75% Tax: $4.50</Text>
               </View>
               <View style={styles.total}>

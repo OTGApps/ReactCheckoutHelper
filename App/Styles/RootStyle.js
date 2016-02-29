@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   topContent: {
     backgroundColor:'blue',
-      flex:1,
+    flex:1,
     flexDirection:'row',
   },
   listView: {
@@ -38,6 +38,9 @@ export default StyleSheet.create({
   topRight: {
     backgroundColor:'orange',
     flex:1,
+    padding: 10,
+    flexDirection:'column',
+    alignItems: 'flex-end',
   },
   bottomContent: {
     flex:1,
@@ -64,5 +67,20 @@ export default StyleSheet.create({
   },
   buttonText: {
     textAlign:'center'
+  },
+  subtotal: {
+    paddingBottom: 30,
+  },
+  total: {
+    flex: 1,
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+  },
+  mediumFont: {
+    fontSize: 20,
+  },
+  largeMonospace: {
+    fontSize: 35,
+    fontFamily: Fonts.monospace,
   }
 });
