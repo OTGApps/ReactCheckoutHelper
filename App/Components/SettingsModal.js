@@ -2,8 +2,14 @@ import React, {Component} from 'react'
 import {
   GiftedForm, GiftedFormManager
 } from 'react-native-gifted-form'
+import Store from 'react-native-simple-store'
 
 export default class SettingsModal extends Component {
+
+  componentDidMount(props) {
+    console.log("giftedform mounted!")
+  }
+
 
   defaults(){
     return {

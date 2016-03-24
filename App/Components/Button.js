@@ -1,9 +1,5 @@
-import React, {
-  Component,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import styles from '../Styles/RootStyle'
+import React, { Component, Text, TouchableOpacity } from 'react-native'
+import styles from '../Styles/Components/ButtonStyle'
 
 export default class Button extends React.Component {
 

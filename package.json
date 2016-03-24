@@ -1,17 +1,50 @@
 {
-  "name": "CheckoutHelper",
+  "name": "RNBase",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "lint": "standard --verbose | snazzy",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
+    "newclear": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm i",
+    "test": "mocha --opts Tests/mocha.opts Tests/ --recursive",
+    "test:client": "mocha --opts Tests/mocha.opts Tests/Services/HttpClient*.js --recursive"
   },
   "dependencies": {
     "lodash": "^4.0.0",
-    "react-native": "^0.20.0",
     "react-native-gifted-form": "git@github.com:markrickert/react-native-gifted-form.git#my-branch",
     "react-native-modalbox": "^1.3.1",
-    "react-native-navbar": "^1.2.1",
     "react-native-picker": "^2.0.1",
-    "react-native-swipeout": "^2.0.12"
+    "react-native-swipeout": "git@github.com:dancormier/react-native-swipeout.git#head",
+    "querystringify": "0.0.3",
+    "ramda": "^0.19.1",
+    "react-native": "^0.22.0",
+    "react": "^0.14.5",
+    "react-redux": "^4.4.0",
+    "redux": "^3.3.1",
+    "redux-logger": "^2.4.0",
+    "redux-saga": "^0.9.3",
+    "seamless-immutable": "^5.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^5.0.0",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.5.3",
+    "deep-freeze": "0.0.1",
+    "mocha": "^2.4.5",
+    "snazzy": "^3.0.0",
+    "standard": "^6.0.7"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "describe",
+      "it",
+      "fetch",
+      "navigator",
+      "__DEV__",
+      "XMLHttpRequest",
+      "FormData"
+    ]
   }
 }
