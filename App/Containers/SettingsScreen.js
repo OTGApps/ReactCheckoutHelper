@@ -1,15 +1,23 @@
 import React, {Component} from 'react'
-import {
-  GiftedForm, GiftedFormManager
-} from 'react-native-gifted-form'
+import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Store from 'react-native-simple-store'
+import Routes from '../Navigation/Routes'
 
-export default class SettingsModal extends Component {
+export default class SettingsScreen extends React.Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func,
+  };
 
   componentDidMount(props) {
     console.log("giftedform mounted!")
   }
-
 
   defaults(){
     return {
@@ -153,3 +161,13 @@ export default class SettingsModal extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    // loggedIn: state.login.username !== null,
+    // temperature: state.weather.temperature,
+    // city: state.weather.city
+  }
+}
+
+export default connect(mapStateToProps)(SettingsScreen)

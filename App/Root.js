@@ -20,9 +20,7 @@ export default class RNBase extends Component {
     return (
       <Provider store={store}>
         <View style={styles.applicationView}>
-          <StatusBar
-            barStyle='light-content'
-          />
+          <StatusBar barStyle='default' />
 
           <Navigator
             initialRoute={Routes.MainScreen}

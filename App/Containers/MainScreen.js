@@ -17,14 +17,19 @@ import PriceObject from '../Models/PriceObject'
 import Button from '../Components/Button'
 import ListItem from '../Components/ListItem'
 import DiscountPicker from '../Components/DiscountPicker'
-import CloseButton from '../Components/CloseButton'
-// import SettingsButton from '../Components/SettingsButton'
-// import SettingsModal from '../Components/SettingsModal'
 
 const ios = Platform.OS === 'ios'
 const android = Platform.OS === 'android'
 
 export default class MainScreen extends React.Component {
+
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    // loggedIn: PropTypes.bool,
+    dispatch: PropTypes.func,
+    // temperature: PropTypes.string,
+    // city: PropTypes.string
+  };
 
   constructor (props) {
     super(props)
@@ -48,23 +53,22 @@ export default class MainScreen extends React.Component {
     this.pressedDiscount = this.pressedDiscount.bind(this)
   }
 
+  componentWillMount() {
+    this.props.navigator.state.tapSettings = this.tapSettings.bind(this)
+  }
+
+  tapSettings() {
+    const { navigator } = this.props
+    const route = Routes.SettingsScreen
+    navigator.push(route)
+  }
+
   componentDidMount() {
     this.setDataSource()
 
     // https://github.com/facebook/react-native/issues/953
     requestAnimationFrame(this.measureListHolderComponent.bind(this))
-
-    // this.refs.settingsModal.open()
-
   }
-
-  static propTypes = {
-    navigator: PropTypes.object.isRequired,
-    // loggedIn: PropTypes.bool,
-    dispatch: PropTypes.func,
-    // temperature: PropTypes.string,
-    // city: PropTypes.string
-  };
 
   // fires when the user presses the login button
   // handlePressLogin () {

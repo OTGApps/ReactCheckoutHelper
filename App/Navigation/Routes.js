@@ -17,6 +17,14 @@ export default new class Routes {
     }
   }
 
+  get SettingsScreen () {
+    return {
+      title: 'Settings',
+      component: require('../Containers/SettingsScreen').default,
+      leftButton: 'BACK'
+    }
+  }
+
   get AllComponentsScreen () {
     return {
       title: 'Welcome',

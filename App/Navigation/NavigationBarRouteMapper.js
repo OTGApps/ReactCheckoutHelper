@@ -19,7 +19,7 @@ export default {
       case 'BACK':
         return NavButtons.backButton(this.BackButton.bind(this, navigator))
       case 'SETTINGS':
-        return NavButtons.settingsButton()
+        return NavButtons.settingsButton(navigator.state.tapSettings)
       default:
         return (<Text>Needs Button</Text>)
     }

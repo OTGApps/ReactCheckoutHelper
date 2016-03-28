@@ -10,7 +10,7 @@ const NavigationStyle = React.StyleSheet.create({
     alignItems: 'center'
   },
   navTitle: {
-    color: Colors.snow,
+    color: Colors.black,
     fontSize: Metrics.fonts.regular,
     fontFamily: Fonts.bold,
     justifyContent: 'center',
@@ -18,7 +18,7 @@ const NavigationStyle = React.StyleSheet.create({
   },
   navSubtitle: {
     flex: 1,
-    color: Colors.white,
+    color: Colors.black,
     fontSize: Metrics.fonts.medium,
     fontFamily: Fonts.base,
     alignSelf: 'center'
@@ -31,7 +31,11 @@ const NavigationStyle = React.StyleSheet.create({
     padding: Metrics.baseMargin
   },
   navigationBar: {
-    backgroundColor: Colors.ocean
+    backgroundColor: Colors.steel
+  },
+  settingsButton: {
+    paddingRight: Metrics.baseMargin,
+    paddingTop: Metrics.baseMargin + 3
   }
 })
 
