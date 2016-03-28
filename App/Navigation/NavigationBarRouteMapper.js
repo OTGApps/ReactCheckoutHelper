@@ -29,9 +29,9 @@ export default {
   // We don't want it to do an additional back if back was
   // already pressed.   Checking the transition state fixes this.
   BackButton (navigator) {
-    // if (navigator.state.stable) {
+    if (navigator.state.activeGesture === null && navigator.state.pendingGestureProgress === null) {
       navigator.pop()
-    // }
+    }
   },
 
   // drives

@@ -1,12 +1,19 @@
-import React from 'react-native'
-import { TouchableOpacity, Image, Text } from 'react-native'
+import React, { TouchableOpacity, Text, Image } from 'react-native'
 import styles from '../Styles/NavigationStyle'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { Colors, Metrics } from '../Themes'
 
 export default {
 
-  backButton(onPressFunction) {
+  backButton (onPressFunction) {
     return (
-      <Text style={styles.backButtonText} onPress={onPressFunction}>Back</Text>
+      <TouchableOpacity onPress={onPressFunction}>
+        <Icon name='angle-left'
+          size={Metrics.icons.medium}
+          color={Colors.snow}
+          style={styles.backButton}
+        />
+      </TouchableOpacity>
     )
   },
 
