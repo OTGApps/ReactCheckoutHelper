@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable'
+
 /**
   Creates a reducer.
   @param {string} initialState - The initial state for this reducer.
