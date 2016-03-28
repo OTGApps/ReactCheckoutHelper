@@ -4,9 +4,9 @@ import styles from '../Styles/NavigationStyle'
 
 export default {
 
-  backButton() {
+  backButton(onPressFunction) {
     return (
-      <Text style={styles.backButtonText}>Back</Text>
+      <Text style={styles.backButtonText} onPress={onPressFunction}>Back</Text>
     )
   },
 
