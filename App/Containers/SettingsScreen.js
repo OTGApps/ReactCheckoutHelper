@@ -1,30 +1,40 @@
-import React, {Component} from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Store from 'react-native-simple-store'
 import Routes from '../Navigation/Routes'
+import styles from '../Styles/SettingsScreenStyle'
 
 export default class SettingsScreen extends React.Component {
+
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func,
+  }
 
   constructor (props) {
     super(props)
     this.state = {}
   }
 
-  static propTypes = {
-    navigator: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
-  };
-
   componentDidMount(props) {
     console.log("giftedform mounted!")
   }
 
-  defaults(){
+  defaults() {
     return {
       taxEnabled: true,
       taxRate: '6.75',
       shippingEnabled: true,
       shippingRate: '4.00'
+    }
+  }
+
+  tapBack() {
+    console.log("tapped back");
+    const { navigator } = this.props
+    if (navigator.state.stable) {
+      navigator.pop()
     }
   }
 
@@ -124,7 +134,8 @@ export default class SettingsScreen extends React.Component {
       <GiftedForm
         formName='setingsForm'
         clearOnClose={false} // delete the values of the form when unmounted
-        defaults={this.defaults()}>
+        defaults={this.defaults()}
+        style={styles.content}>
 
         <GiftedForm.SeparatorWidget />
         <GiftedForm.GroupWidget title='Tax'>
