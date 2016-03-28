@@ -63,56 +63,46 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  _renderShipping1() {
-    if (this.showShippingElements()) {
-      return (
-        <GiftedForm.TextInputWidget
-          name='shippingRate'
-          title='Flat Rate ($):'
-          keyboardType='numeric' />
-      )
-    }
-  }
-
-  _renderShipping2() {
-    if (this.showShippingElements()) {
-      return (
-        <GiftedForm.TextInputWidget
-          name='shippingRatePct'
-          title='% Rate:'
-          keyboardType='numeric' />
-      )
-    }
-  }
-
-  _renderShipping3() {
-    if (this.showShippingElements()) {
-      return (
-        <GiftedForm.TextInputWidget
-          name='shippingNotToExceed'
-          title='Not to exceed:'
-          keyboardType='numeric' />
-      )
-    }
-  }
-
-  _renderShipping4() {
-    if (this.showShippingElements()) {
-      return (
-        <GiftedForm.TextInputWidget
-          name='shippingMinimum'
-          title='Minimum:'
-          keyboardType='numeric' />
-      )
-    }
-  }
-
   _renderShipping5() {
-    if (this.showShippingElements()) {
+    if (this.showTaxElements() && this.showShippingElements()) {
       return (
         <GiftedForm.SwitchWidget
           name='shippingTaxEnabled'
           title='Tax Shipping?' />
+      )
+    }
+  }
+
+  _flatRateShipping() {
+    if (this.showShippingElements()) {
+      return (
+        <GiftedForm.GroupWidget title='Flat Rate Shipping'>
+          <GiftedForm.TextInputWidget
+            name='shippingRate'
+            title='Flat Rate ($):'
+            keyboardType='numeric' />
+        </GiftedForm.GroupWidget>
+      )
+    }
+  }
+
+  _percentageShipping() {
+    if (this.showShippingElements()) {
+      return (
+        <GiftedForm.GroupWidget title='Percentage Rate Shipping'>
+          <GiftedForm.TextInputWidget
+            name='shippingRatePct'
+            title='% Rate:'
+            keyboardType='numeric' />
+          <GiftedForm.TextInputWidget
+            name='shippingNotToExceed'
+            title='Maximum ($):'
+            keyboardType='numeric' />
+          <GiftedForm.TextInputWidget
+            name='shippingMinimum'
+            title='Minimum ($):'
+            keyboardType='numeric' />
+        </GiftedForm.GroupWidget>
       )
     }
   }
@@ -138,6 +128,7 @@ export default class SettingsScreen extends React.Component {
           />
         {this._renderTax1()}
         {this._renderTax2()}
+        {this._renderShipping5()}
         </GiftedForm.GroupWidget>
 
         <GiftedForm.SeparatorWidget />
@@ -150,11 +141,8 @@ export default class SettingsScreen extends React.Component {
               this.forceUpdate()
             }}
           />
-          {this._renderShipping1()}
-          {this._renderShipping2()}
-          {this._renderShipping3()}
-          {this._renderShipping4()}
-          {this._renderShipping5()}
+          {this._flatRateShipping()}
+          {this._percentageShipping()}
         </GiftedForm.GroupWidget>
 
       </GiftedForm>
