@@ -10,7 +10,7 @@ export const INITIAL_STATE = Immutable({
 })
 
 const save = (state, action) => {
-  return { ...state, ...action}
+  return Immutable({ ...state, ...action})
 }
 
 // map our types to our handlers
