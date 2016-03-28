@@ -18,18 +18,18 @@ const logger = createLogger({
 })
 
 // a function which can create our store and auto-persist the data
-export default (persist = false) => {
+export default () => {
   const store = createStore(
     rootReducer,
     applyMiddleware(
       logger,
       sagaMiddleware(...sagas)
     ),
-    (persist) ? autoRehydrate() : null
+    (Config.reduxPersist) ? autoRehydrate() : null
   )
 
-  if(persist) {
     persistStore(store, {storage: AsyncStorage})
+  if (Config.reduxPersist) {
   }
 
   return store
