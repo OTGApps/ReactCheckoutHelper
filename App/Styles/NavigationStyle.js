@@ -23,11 +23,8 @@ const NavigationStyle = React.StyleSheet.create({
     fontFamily: Fonts.base,
     alignSelf: 'center'
   },
-  backButtonText: {
-    color: Colors.white,
-    marginTop: 8,
-    marginLeft: 8,
-    fontFamily: Fonts.bold,
+  backButton: {
+    color: Colors.black,
     padding: Metrics.baseMargin
   },
   navigationBar: {
