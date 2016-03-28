@@ -4,9 +4,9 @@ import createReducer from './CreateReducer'
 
 export const INITIAL_STATE = Immutable({
   taxEnabled: true,
-  taxRate: '7.2',
+  taxRate: '6.75',
   shippingEnabled: true,
-  shippingRate: '5.00'
+  shippingRate: '4.00'
 })
 
 const save = (state, action) =>

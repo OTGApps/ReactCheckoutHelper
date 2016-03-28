@@ -23,18 +23,9 @@ export default class SettingsScreen extends React.Component {
     this.props.navigator.state.tappedBack = this.tappedBack.bind(this)
   }
 
-  defaults() {
-    return {
-      taxEnabled: true,
-      taxRate: '6.75',
-      shippingEnabled: true,
-      shippingRate: '4.00'
-    }
-  }
-
   tappedBack() {
     const { dispatch } = this.props
-    dispatch(Actions.saveSettings(this.defaults()))
+    dispatch(Actions.saveSettings(GiftedFormManager.getValues('settingsForm')))
   }
 
   showTaxElements(){
