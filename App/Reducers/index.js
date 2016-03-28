@@ -9,3 +9,6 @@ export default combineReducers({
   weather: WeatherReducer,
   settings: SettingsReducer
 })
+
+// Put reducer keys that you do NOT want stored to persistence here
+export const persistentStoreBlacklist = []
