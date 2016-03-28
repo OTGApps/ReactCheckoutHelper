@@ -25,19 +25,4 @@ export default new class Routes {
     }
   }
 
-  get AllComponentsScreen () {
-    return {
-      title: 'Welcome',
-      component: require('../Containers/AllComponentsScreen').default
-    }
-  }
-
-  get LoginScreen () {
-    return {
-      title: 'Login',
-      component: require('../Containers/LoginScreen').default,
-      customConfiguration: Transitions.modal
-    }
-  }
-
 }

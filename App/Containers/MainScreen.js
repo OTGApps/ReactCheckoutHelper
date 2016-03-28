@@ -70,13 +70,6 @@ export default class MainScreen extends React.Component {
     requestAnimationFrame(this.measureListHolderComponent.bind(this))
   }
 
-  // fires when the user presses the login button
-  // handlePressLogin () {
-  //   const { navigator } = this.props
-  //   const route = Routes.LoginScreen
-  //   navigator.push(route)
-  // }
-
   // fires when the user presses the logout button
   // handlePressLogout () {
   //   const { dispatch } = this.props

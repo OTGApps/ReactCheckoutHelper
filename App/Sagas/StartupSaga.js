@@ -6,6 +6,6 @@ import Actions from '../Actions/Creators'
 export function * watchStartup () {
   while (true) {
     yield take(Types.STARTUP)
-    yield put(Actions.requestTemperature('San Francisco'))
+    // yield put(Actions.requestTemperature('San Francisco'))
   }
 }
