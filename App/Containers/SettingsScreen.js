@@ -15,17 +15,15 @@ export default class SettingsScreen extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {}
   }
 
   componentDidMount(props) {
     console.log("giftedform mounted!")
-    this.props.navigator.state.tappedBack = this.tappedBack.bind(this)
   }
 
-  tappedBack() {
+  handleValueChange(values) {
     const { dispatch } = this.props
-    dispatch(Actions.saveSettings(GiftedFormManager.getValues('settingsForm')))
+    dispatch(Actions.saveSettings(values))
   }
 
   showTaxElements(){
@@ -125,7 +123,8 @@ export default class SettingsScreen extends React.Component {
         formName='setingsForm'
         clearOnClose={false} // delete the values of the form when unmounted
         defaults={this.props.currentSettings}
-        style={styles.content}>
+        style={styles.content}
+        onValueChange={this.handleValueChange.bind(this)}>
 
         <GiftedForm.SeparatorWidget />
         <GiftedForm.GroupWidget title='Tax'>
