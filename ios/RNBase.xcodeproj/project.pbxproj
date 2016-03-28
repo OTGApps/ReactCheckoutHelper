@@ -700,6 +700,7 @@
 				INFOPLIST_FILE = RNBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = io.otgapps.checkouthelper3;
 				PRODUCT_NAME = RNBase;
 			};
 			name = Debug;
@@ -717,6 +718,7 @@
 				INFOPLIST_FILE = RNBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = io.otgapps.checkouthelper3;
 				PRODUCT_NAME = RNBase;
 			};
 			name = Release;
