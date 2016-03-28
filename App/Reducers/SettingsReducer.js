@@ -4,12 +4,13 @@ import createReducer from './CreateReducer'
 
 export const INITIAL_STATE = Immutable({
   taxEnabled: true,
-  taxPreDiscountedPrice: false, 
+  taxPreDiscountedPrice: false,
   taxRate: '6.75',
+  shippingTaxEnabled: false,
   shippingEnabled: true,
   shippingRate: '4.00',
   shippingRatePct: null,
-  shippingNotToExceed: null,
+  shippingMaximum: null,
   shippingMinimum: null,
   shippingTaxEnabled: false,
 })

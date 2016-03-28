@@ -52,7 +52,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  _renderTax2() {
+  _renderTaxRate() {
     if (this.showTaxElements()) {
       return (
         <GiftedForm.TextInputWidget
@@ -95,7 +95,7 @@ export default class SettingsScreen extends React.Component {
             title='% Rate:'
             keyboardType='numeric' />
           <GiftedForm.TextInputWidget
-            name='shippingNotToExceed'
+            name='shippingMaximum'
             title='Maximum ($):'
             keyboardType='numeric' />
           <GiftedForm.TextInputWidget
@@ -127,7 +127,7 @@ export default class SettingsScreen extends React.Component {
             }}
           />
         {this._renderTax1()}
-        {this._renderTax2()}
+        {this._renderTaxRate()}
         {this._renderShipping5()}
         </GiftedForm.GroupWidget>
 
