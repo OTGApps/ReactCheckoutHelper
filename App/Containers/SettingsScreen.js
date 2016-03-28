@@ -4,6 +4,7 @@ import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Store from 'react-native-simple-store'
 import Routes from '../Navigation/Routes'
 import styles from '../Styles/SettingsScreenStyle'
+import Actions from '../Actions/Creators'
 
 export default class SettingsScreen extends React.Component {
 
@@ -19,6 +20,7 @@ export default class SettingsScreen extends React.Component {
 
   componentDidMount(props) {
     console.log("giftedform mounted!")
+    this.props.navigator.state.tappedBack = this.tappedBack.bind(this)
   }
 
   defaults() {
@@ -30,19 +32,16 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  tapBack() {
-    console.log("tapped back");
-    const { navigator } = this.props
-    if (navigator.state.stable) {
-      navigator.pop()
-    }
+  tappedBack() {
+    const { dispatch } = this.props
+    dispatch(Actions.saveSettings(this.defaults()))
   }
 
   showTaxElements(){
     if(this.refs && this.refs.taxEnabled) {
       return this.refs.taxEnabled.state.value
     } else{
-      return this.defaults().taxEnabled
+      return this.props.currentSettings.taxEnabled
     }
   }
 
@@ -50,7 +49,7 @@ export default class SettingsScreen extends React.Component {
     if(this.refs && this.refs.shippingEnabled) {
       return this.refs.shippingEnabled.state.value
     } else{
-      return this.defaults().shippingEnabled
+      return this.props.currentSettings.shippingEnabled
     }
   }
 
@@ -134,7 +133,7 @@ export default class SettingsScreen extends React.Component {
       <GiftedForm
         formName='setingsForm'
         clearOnClose={false} // delete the values of the form when unmounted
-        defaults={this.defaults()}
+        defaults={this.props.currentSettings}
         style={styles.content}>
 
         <GiftedForm.SeparatorWidget />
@@ -175,9 +174,7 @@ export default class SettingsScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // loggedIn: state.login.username !== null,
-    // temperature: state.weather.temperature,
-    // city: state.weather.city
+    currentSettings: state.settings
   }
 }
 

@@ -14,6 +14,9 @@ const logout = () => createAction(Types.LOGOUT)
 
 const startup = () => createAction(Types.STARTUP)
 
+const saveSettings = (settings) =>
+  createAction(Types.SAVE_SETTINGS, settings)
+
 // const requestTemperature = (city) => createAction(Types.TEMPERATURE_REQUEST, { city })
 // const receiveTemperature = (temperature) => createAction(Types.TEMPERATURE_RECEIVE, { temperature })
 // const receiveTemperatureFailure = () => createAction(Types.TEMPERATURE_FAILURE)
@@ -27,6 +30,7 @@ export default {
   loginFailure,
   logout,
   startup,
+  saveSettings,
   // requestTemperature,
   // receiveTemperature,
   // receiveTemperatureFailure

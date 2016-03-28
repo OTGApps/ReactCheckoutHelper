@@ -30,6 +30,9 @@ export default {
   // already pressed.   Checking the transition state fixes this.
   BackButton (navigator) {
     if (navigator.state.activeGesture === null && navigator.state.pendingGestureProgress === null) {
+      if(navigator.state.tappedBack) {
+        navigator.state.tappedBack()
+      }
       navigator.pop()
     }
   },
