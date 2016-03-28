@@ -9,9 +9,8 @@ export const INITIAL_STATE = Immutable({
   shippingRate: '4.00'
 })
 
-const save = (state, action) => {
-  return Immutable({ ...state, ...action})
-}
+const save = (state, action) =>
+  state.merge(action)
 
 // map our types to our handlers
 const ACTION_HANDLERS = {

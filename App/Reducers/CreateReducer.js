@@ -7,5 +7,10 @@
 export default (initialState = null, handlers = {}) => (state = initialState, action) => {
   if (!action && !action.type) return state
   const handler = handlers[action.type]
-  return handler && handler(state, action) || state
+  // Check to see if the state is already Immutable
+  if (state && typeof state.asMutable === 'function') {
+    return handler && handler(state, action) || state
+  } else {
+    return handler && handler(Immutable(state), action) || Immutable(state)
+  }
 }
