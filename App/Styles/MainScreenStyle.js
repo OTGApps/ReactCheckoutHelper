@@ -16,13 +16,6 @@ export default StyleSheet.create({
     backgroundColor:'yellow',
     flex:1,
   },
-  topRight: {
-    backgroundColor:'orange',
-    flex:1,
-    padding: 10,
-    flexDirection:'column',
-    alignItems: 'flex-end',
-  },
   bottomContent: {
     flex:1,
   },
@@ -45,20 +38,5 @@ export default StyleSheet.create({
   },
   greenButton: {
     backgroundColor:'green'
-  },
-  subtotal: {
-    paddingBottom: 30,
-  },
-  total: {
-    flex: 1,
-    alignSelf: "flex-end",
-    justifyContent: "flex-end",
-  },
-  mediumFont: {
-    fontSize: 20,
-  },
-  largeMonospace: {
-    fontSize: 35,
-    fontFamily: Fonts.monospace,
   }
 })

@@ -1,11 +1,10 @@
 // An All Components Screen is a great way to dev and quick-test components
 import React, { Platform, ListView, View, Text, TouchableOpacity, PropTypes } from 'react-native'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import styles from '../Styles/MainScreenStyle'
-import ProgressiveImage from '../Components/ProgressiveImage'
-import { Images } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
+import InfoView from '../Components/InfoView'
 
 import Swipeout from 'react-native-swipeout'
 import _ from 'lodash'
@@ -108,6 +107,7 @@ export default class MainScreen extends React.Component {
     let mappedCents = _.map(rows, (n) => {
       return n.cents
     })
+    console.log("Subtotal: ", _.sum(mappedCents));
     return _.sum(mappedCents)
   }
 
@@ -232,6 +232,8 @@ export default class MainScreen extends React.Component {
       width: 40,
     }
 
+    // TODO - don't render the swipeable row on the bottom
+
     return (
       <Swipeout
         right={[deleteButton]}
@@ -272,9 +274,7 @@ export default class MainScreen extends React.Component {
     )
   }
 
-
   render () {
-    // const { loggedIn, temperature, city } = this.props
     return (
       <View style={styles.content}>
         <View style={styles.topContent} ref="listHolder">
@@ -286,25 +286,7 @@ export default class MainScreen extends React.Component {
             onContentSizeChange={(newSize)=>{
               this.scrollToBottom()
             }} />
-          <View style={styles.topRight}>
-            <View style={styles.subtotal}>
-              <Text style={styles.medium}>Subtotal:</Text>
-              <Text style={styles.largeMonospace}>{this.convertCentsToDollars(this.state.subtotal, true)}</Text>
-            </View>
-            <View>
-              <Text>$4.95 Shipping: $4.95</Text>
-            </View>
-            <View>
-              <Text>Discounts: $4.95</Text>
-            </View>
-            <View>
-              <Text>6.75% Tax: $4.50</Text>
-            </View>
-            <View style={styles.total}>
-              <Text style={styles.medium}>Total:</Text>
-              <Text style={styles.largeMonospace}>{this.convertCentsToDollars(this.state.total, true)}</Text>
-            </View>
-          </View>
+            <InfoView rows={this.state.rows} />
         </View>
         <View style={styles.bottomContent}>
 
@@ -346,12 +328,12 @@ export default class MainScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    // loggedIn: state.login.username !== null,
-    // temperature: state.weather.temperature,
-    // city: state.weather.city
-  }
-}
-
-export default connect(mapStateToProps)(MainScreen)
+// const mapStateToProps = (state) => {
+//   return {
+//     // loggedIn: state.login.username !== null,
+//     // temperature: state.weather.temperature,
+//     // city: state.weather.city
+//   }
+// }
+//
+// export default connect(mapStateToProps)(MainScreen)
