@@ -11,8 +11,7 @@ export const INITIAL_STATE = Immutable({
   shippingRate: '4.00',
   shippingRatePct: null,
   shippingMaximum: null,
-  shippingMinimum: null,
-  shippingTaxEnabled: false,
+  shippingMinimum: null
 })
 
 const save = (state, action) =>

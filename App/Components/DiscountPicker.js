@@ -1,32 +1,26 @@
-import React, {
-	View,
-	Text,
-	TouchableOpacity,
-	Dimensions
-} from 'react-native';
+import React, { View, Text, TouchableOpacity, Dimensions } from 'react-native'
+import Picker from 'react-native-picker'
 
-import Picker from 'react-native-picker';
-
-function createAreaData(area){
-	let data = {};
-	let len = area.length;
-	for(let i=0;i<len;i++){
-		let city = area[i]['city'];
-		let cityLen = city.length;
-		let ProvinceName = area[i]['name'];
-		data[ProvinceName] = {};
-		for(let j=0;j<cityLen;j++){
-			let area = city[j]['area'];
-			let cityName = city[j]['name'];
-			data[ProvinceName][cityName] = area;
+function createAreaData (area) {
+  let data = {}
+  let len = area.length
+  for (let i = 0; i < len; i++) {
+    let city = area[i]['city']
+    let cityLen = city.length
+    let ProvinceName = area[i]['name']
+    data[ProvinceName] = {};
+		for (let j = 0; j < cityLen; j++) {
+			let area = city[j]['area']
+			let cityName = city[j]['name']
+			data[ProvinceName][cityName] = area
 		}
 	}
-	return data;
-};
+	return data
+}
 
 export default class AreaPicker extends React.Component {
 
-	constructor(props, context){
+	constructor (props, context) {
 		super(props, context);
 		this.state = {
 			pickerData: [{
@@ -35,7 +29,7 @@ export default class AreaPicker extends React.Component {
 				}
 			}],
 			selectedValue: ['北京', '北京', '朝阳区']
-		};
+		}
 		fetch('https://raw.githubusercontent.com/beefe/react-native-picker/master/demo/area.json').then(res => {
 			res.json().then(data => {
 				this.setState({
@@ -43,15 +37,15 @@ export default class AreaPicker extends React.Component {
 				});
 			});
 		}, err => {
-			console.log(err);
+			console.log(err)
 		});
 	}
 
-	_onPressHandle(){
-		this.picker.toggle();
+	_onPressHandle () {
+		this.picker.toggle()
 	}
 
-	render(){
+	render () {
 		return (
 			<View style={{height: Dimensions.get('window').height}}>
 				<TouchableOpacity style={{marginTop: 20}} onPress={this._onPressHandle.bind(this)}>
@@ -68,6 +62,6 @@ export default class AreaPicker extends React.Component {
 					}}
 				/>
 			</View>
-		);
+		)
 	}
-};
+}

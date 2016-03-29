@@ -16,6 +16,10 @@ const colors = {
   coal: '#2d2d2d',
   black: '#000000',
   white: '#FFFFFF',
+
+  red: 'red',
+  green: 'green',
+  blue: 'blue'
 }
 
 export default colors

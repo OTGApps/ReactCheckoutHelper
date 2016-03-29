@@ -1,42 +1,41 @@
 import { StyleSheet } from 'react-native'
-import { Fonts, Colors, Metrics, Base } from '../Themes/'
+import { Colors } from '../Themes/'
 
 export default StyleSheet.create({
   content: {
-    flex:1,
-    marginTop: 64,
+    flex: 1,
+    marginTop: 64
   },
   topContent: {
-    backgroundColor:'blue',
-    flex:1,
-    flexDirection:'row',
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'blue'
   },
   listView: {
-    backgroundColor: 'red',
-    backgroundColor:'yellow',
-    flex:1,
+    flex: 1,
+    backgroundColor: 'yellow'
   },
   bottomContent: {
-    flex:1,
+    flex: 1
   },
   row: {
-    flex:1,
-    flexDirection:'row',
+    flex: 1,
+    flexDirection: 'row'
   },
   button: {
-    backgroundColor:'#AAAAAA',
-    flex:1,
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#AAAAAA',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   redButton: {
-    backgroundColor:'red'
+    backgroundColor: Colors.red
   },
   blueButton: {
-    backgroundColor:'blue'
+    backgroundColor: Colors.blue
   },
   greenButton: {
-    backgroundColor:'green'
+    backgroundColor: Colors.green
   }
 })

@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
-import Store from 'react-native-simple-store'
-import Routes from '../Navigation/Routes'
+import { GiftedForm } from 'react-native-gifted-form'
 import styles from '../Styles/SettingsScreenStyle'
 import Actions from '../Actions/Creators'
 
@@ -10,39 +8,34 @@ export default class SettingsScreen extends React.Component {
 
   static propTypes = {
     navigator: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
+    dispatch: PropTypes.func
   }
 
-  constructor (props) {
-    super(props)
+  componentDidMount (props) {
   }
 
-  componentDidMount(props) {
-    console.log("giftedform mounted!")
-  }
-
-  handleValueChange(values) {
+  handleValueChange (values) {
     const { dispatch } = this.props
     dispatch(Actions.saveSettings(values))
   }
 
-  showTaxElements(){
-    if(this.refs && this.refs.taxEnabled) {
+  showTaxElements () {
+    if (this.refs && this.refs.taxEnabled) {
       return this.refs.taxEnabled.state.value
-    } else{
+    } else {
       return this.props.currentSettings.taxEnabled
     }
   }
 
-  showShippingElements(){
-    if(this.refs && this.refs.shippingEnabled) {
+  showShippingElements () {
+    if (this.refs && this.refs.shippingEnabled) {
       return this.refs.shippingEnabled.state.value
-    } else{
+    } else {
       return this.props.currentSettings.shippingEnabled
     }
   }
 
-  _renderTax1(){
+  _renderTax1 () {
     if (this.showTaxElements()) {
       return (
         <GiftedForm.SwitchWidget
@@ -52,7 +45,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  _renderTaxRate() {
+  _renderTaxRate () {
     if (this.showTaxElements()) {
       return (
         <GiftedForm.TextInputWidget
@@ -63,7 +56,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  _renderShipping5() {
+  _renderShipping5 () {
     if (this.showTaxElements() && this.showShippingElements()) {
       return (
         <GiftedForm.SwitchWidget
@@ -73,7 +66,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  _flatRateShipping() {
+  _flatRateShipping () {
     if (this.showShippingElements()) {
       return (
         <GiftedForm.GroupWidget title='Flat Rate Shipping'>
@@ -86,7 +79,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  _percentageShipping() {
+  _percentageShipping () {
     if (this.showShippingElements()) {
       return (
         <GiftedForm.GroupWidget title='Percentage Rate Shipping'>
@@ -107,7 +100,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <GiftedForm
         formName='setingsForm'

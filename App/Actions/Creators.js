@@ -30,8 +30,5 @@ export default {
   loginFailure,
   logout,
   startup,
-  saveSettings,
-  // requestTemperature,
-  // receiveTemperature,
-  // receiveTemperatureFailure
+  saveSettings
 }

@@ -1,8 +1,7 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { Platform, ListView, View, Text, TouchableOpacity, PropTypes } from 'react-native'
+import React, { Platform, ListView, View, PropTypes } from 'react-native'
 // import { connect } from 'react-redux'
 import styles from '../Styles/MainScreenStyle'
-import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
 import InfoView from '../Components/InfoView'
 
@@ -15,7 +14,7 @@ import PriceObject from '../Models/PriceObject'
 // My Components
 import Button from '../Components/Button'
 import ListItem from '../Components/ListItem'
-import DiscountPicker from '../Components/DiscountPicker'
+// import DiscountPicker from '../Components/DiscountPicker'
 
 const ios = Platform.OS === 'ios'
 const android = Platform.OS === 'android'
@@ -24,8 +23,8 @@ export default class MainScreen extends React.Component {
 
   static propTypes = {
     navigator: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
-  };
+    dispatch: PropTypes.func
+  }
 
   constructor (props) {
     super(props)
@@ -33,7 +32,7 @@ export default class MainScreen extends React.Component {
       rows: [this.rowFactory()],
       listTopPadding: 0,
       dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
+        rowHasChanged: (row1, row2) => row1 !== row2
       })
     }
 
@@ -47,41 +46,41 @@ export default class MainScreen extends React.Component {
     this.pressedDiscount = this.pressedDiscount.bind(this)
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.navigator.state.tapSettings = this.tapSettings.bind(this)
   }
 
-  tapSettings() {
+  tapSettings () {
     const { navigator } = this.props
     const route = Routes.SettingsScreen
     navigator.push(route)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.setDataSource()
 
     // https://github.com/facebook/react-native/issues/953
     requestAnimationFrame(this.measureListHolderComponent.bind(this))
   }
 
-  measureListHolderComponent() {
+  measureListHolderComponent () {
     this.refs.listHolder.measure((ox, oy, width, height) => {
       // TODO - 48?
       this.setState({listTopPadding: height - 48})
     })
   }
 
-  resetDataSource() {
-    console.log("resetDataSource")
+  resetDataSource () {
+    console.log('resetDataSource')
     this.setState({
-      rows: [this.rowFactory()],
+      rows: [this.rowFactory()]
     })
     this.setState(this.calculateObject())
     this.setDataSource()
     this.scrollToBottom()
   }
 
-  calculateObject(){
+  calculateObject () {
     let subtotal = this.subtotal()
     let shipping = 0
     let itemDiscounts = 0
@@ -94,39 +93,39 @@ export default class MainScreen extends React.Component {
       itemDiscounts: itemDiscounts,
       overallDiscount: overallDiscount,
       tax: tax,
-      total: subtotal + shipping - itemDiscounts - overallDiscount + tax,
+      total: subtotal + shipping - itemDiscounts - overallDiscount + tax
     }
   }
 
-  calculateAndSet() {
+  calculateAndSet () {
     this.setState(this.calculateObject())
   }
 
-  subtotal(){
+  subtotal () {
     let rows = this.state.rows
     let mappedCents = _.map(rows, (n) => {
       return n.cents
     })
-    console.log("Subtotal: ", _.sum(mappedCents));
+    console.log('Subtotal: ', _.sum(mappedCents))
     return _.sum(mappedCents)
   }
 
-  pressedButton(button) {
-    console.log("Pressed Button: " + button)
+  pressedButton (button) {
+    console.log('Pressed Button: ', button)
 
     let rows = this.state.rows
     let popped = rows.pop()
-    rows.push(this.rowFactory(parseInt(popped.cents + "" + button), popped.discount))
+    rows.push(this.rowFactory(parseInt(popped.cents + '' + button), popped.discount))
     this.setRows(rows)
   }
 
-  pressedClrAll() {
-    console.log("Pressed Clear All")
+  pressedClrAll () {
+    console.log('Pressed Clear All')
     this.resetDataSource()
   }
 
-  pressedClearLast() {
-    console.log("Pressed Clear Last")
+  pressedClearLast () {
+    console.log('Pressed Clear Last')
 
     let rows = this.state.rows
     rows.pop()
@@ -135,8 +134,8 @@ export default class MainScreen extends React.Component {
     this.setRows(rows)
   }
 
-  pressedBackspace() {
-    console.log("Pressed Backspace")
+  pressedBackspace () {
+    console.log('Pressed Backspace')
 
     let rows = this.state.rows
     let popped = rows.pop()
@@ -147,8 +146,8 @@ export default class MainScreen extends React.Component {
     this.setRows(rows)
   }
 
-  pressedAdd() {
-    console.log("Pressed Add")
+  pressedAdd () {
+    console.log('Pressed Add')
 
     let rows = this.state.rows
     console.log(rows)
@@ -159,48 +158,48 @@ export default class MainScreen extends React.Component {
   }
 
   // Determines if an operation should succeed or not
-  canAddNumberToList() {
+  canAddNumberToList () {
     let rows = this.state.rows
-    return rows[rows.length-1] != 0
+    return rows[rows.length - 1] !== 0
   }
 
-  pressedDoubleZero() {
-    console.log("Pressed Double Zero")
+  pressedDoubleZero () {
+    console.log('Pressed Double Zero')
 
     let rows = this.state.rows
     if (this.canAddNumberToList()) {
       let popped = rows.pop()
 
-      rows.push(this.rowFactory(parseInt(popped.cents + "00"), popped.discount))
+      rows.push(this.rowFactory(parseInt(popped.cents + '00'), popped.discount))
       rows.push(this.rowFactory())
       this.setRows(rows)
     }
   }
 
-  pressedDiscount() {
-    console.log("Pressed Discount")
+  pressedDiscount () {
+    console.log('Pressed Discount')
   }
 
   // TODO - this doesn't work.
-  scrollToBottom() {
-    console.log("Scrolling to bottom")
+  scrollToBottom () {
+    console.log('Scrolling to bottom')
     let ul = this.refs.list
     console.log(ul.scrollProperties)
-    console.log("Scrolling to:", ul.scrollProperties.contentLength - 48)
+    console.log('Scrolling to:', ul.scrollProperties.contentLength - 48)
     ul.scrollTo({y: ul.scrollProperties.contentLength - 48})
   }
 
-  setRows(rows) {
+  setRows (rows) {
     this.setState({
-      rows: rows,
+      rows: rows
     })
 
     this.setDataSource(true)
   }
 
-  setDataSource(scroll = false) {
+  setDataSource (scroll = false) {
     let _this = this
-    let object_rows = _.map(this.state.rows, function(n) {
+    let object_rows = _.map(this.state.rows, function (n) {
       return {
         title: _this.convertCentsToDollars(n.cents, true)
       }
@@ -218,7 +217,7 @@ export default class MainScreen extends React.Component {
     // }
   }
 
-  renderItem(item, sectionID, rowID) {
+  renderItem (item, sectionID, rowID) {
     let deleteButton = {
       text: 'Delete',
       onPress: () => { console.log(item, sectionID, rowID) },
@@ -229,7 +228,7 @@ export default class MainScreen extends React.Component {
         https://github.com/dancormier/react-native-swipeout/issues/42
         The width property doesn't work yet.
        */
-      width: 40,
+      width: 40
     }
 
     // TODO - don't render the swipeable row on the bottom
@@ -240,36 +239,36 @@ export default class MainScreen extends React.Component {
         rowID={rowID}
         sectionID={sectionID}
         autoClose={true}
-        close={(rowID == 0) ? true : false}
+        close={rowID === 0}
       >
         <ListItem item={item} onPress={() => {}} />
       </Swipeout>
     )
   }
 
-  rowFactory(cents = 0, discount = null){
+  rowFactory (cents = 0, discount = null) {
     return new PriceObject(cents, discount)
   }
 
-  convertCentsToDollars(cents, symbol = false) {
-    let converted_float = (cents/100).toFixed(2)
+  convertCentsToDollars (cents, symbol = false) {
+    let converted_float = (cents / 100).toFixed(2)
 
     if (symbol === true) {
-      return "$" + converted_float
+      return '$' + converted_float
     } else {
       return converted_float
     }
   }
 
   // Button Factory
-  renderButton(text, additionalStyles=null, onPress=null) {
+  renderButton (text, additionalStyles = null, onPress = null) {
     let buttonStyles = [styles.button]
     if (additionalStyles !== null) {
       buttonStyles.push(additionalStyles)
     }
-    let pressEvent = ((onPress == null) ? this.pressedButton : onPress )
+    let pressEvent = ((onPress == null) ? this.pressedButton : onPress)
 
-    return(
+    return (
       <Button label={text} style={buttonStyles} onPress={pressEvent} />
     )
   }
@@ -277,49 +276,49 @@ export default class MainScreen extends React.Component {
   render () {
     return (
       <View style={styles.content}>
-        <View style={styles.topContent} ref="listHolder">
+        <View style={styles.topContent} ref='listHolder'>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderItem.bind(this)}
             style={[styles.listView, {paddingTop: this.state.listTopPadding}]}
-            ref="list"
-            onContentSizeChange={(newSize)=>{
+            ref='list'
+            onContentSizeChange={(newSize) => {
               this.scrollToBottom()
             }} />
-            <InfoView rows={this.state.rows} />
+          <InfoView rows={this.state.rows} />
         </View>
         <View style={styles.bottomContent}>
 
           {/* Top Row */}
           <View style={styles.row}>
-            { this.renderButton('7') }
-            { this.renderButton('8') }
-            { this.renderButton('9') }
-            { this.renderButton('Clr All', styles.redButton, this.pressedClrAll) }
+            {this.renderButton('7')}
+            {this.renderButton('8')}
+            {this.renderButton('9')}
+            {this.renderButton('Clr All', styles.redButton, this.pressedClrAll)}
           </View>
 
           {/* 2nd Row */}
           <View style={styles.row}>
-            { this.renderButton('4') }
-            { this.renderButton('5') }
-            { this.renderButton('6') }
-            { this.renderButton('Clr Last', styles.redButton, this.pressedClearLast) }
+            {this.renderButton('4')}
+            {this.renderButton('5')}
+            {this.renderButton('6')}
+            {this.renderButton('Clr Last', styles.redButton, this.pressedClearLast)}
           </View>
 
           {/* 3rd Row */}
           <View style={styles.row}>
-            { this.renderButton('1') }
-            { this.renderButton('2') }
-            { this.renderButton('3') }
-            { this.renderButton('Bksp', styles.redButton, this.pressedBackspace) }
+            {this.renderButton('1')}
+            {this.renderButton('2')}
+            {this.renderButton('3')}
+            {this.renderButton('Bksp', styles.redButton, this.pressedBackspace)}
           </View>
 
           {/* 4th Row */}
           <View style={styles.row}>
-            { this.renderButton('0') }
-            { this.renderButton('.00', null, this.pressedDoubleZero) }
-            { this.renderButton('Add', styles.greenButton, this.pressedAdd) }
-            { this.renderButton('Disc', styles.blueButton, this.pressedDiscount) }
+            {this.renderButton('0')}
+            {this.renderButton('.00', null, this.pressedDoubleZero)}
+            {this.renderButton('Add', styles.greenButton, this.pressedAdd)}
+            {this.renderButton('Disc', styles.blueButton, this.pressedDiscount)}
           </View>
 
         </View>

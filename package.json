@@ -19,7 +19,6 @@
     "react-native-gifted-form": "git@github.com:markrickert/react-native-gifted-form.git#my-branch",
     "react-native-modalbox": "^1.3.1",
     "react-native-picker": "^2.0.1",
-    "react-native-simple-store": "^0.1.0",
     "react-native-swipeout": "git@github.com:dancormier/react-native-swipeout.git#head",
     "react-native-vector-icons": "^1.3.3",
     "react-redux": "^4.4.0",

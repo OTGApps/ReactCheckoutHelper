@@ -1,15 +1,11 @@
-import React, {
-  Component,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import React, { Component, Text, TouchableOpacity } from 'react-native'
 
 export default class CloseButton extends Component {
-  render() {
+  render () {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <Text style={{marginLeft: 10}}>Done</Text>
       </TouchableOpacity>
-    );
+    )
   }
 }
