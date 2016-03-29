@@ -25,10 +25,7 @@ export default class MainScreen extends React.Component {
 
   static propTypes = {
     navigator: PropTypes.object.isRequired,
-    // loggedIn: PropTypes.bool,
     dispatch: PropTypes.func,
-    // temperature: PropTypes.string,
-    // city: PropTypes.string
   };
 
   constructor (props) {
@@ -40,11 +37,9 @@ export default class MainScreen extends React.Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       })
     }
-    // this.handlePressLogin = this.handlePressLogin.bind(this)
-    // this.handlePressLogout = this.handlePressLogout.bind(this)
 
     // Bind Functions
-    this.pressedNumber = this.pressedNumber.bind(this)
+    this.pressedButton = this.pressedButton.bind(this)
     this.pressedClrAll = this.pressedClrAll.bind(this)
     this.pressedClearLast = this.pressedClearLast.bind(this)
     this.pressedBackspace = this.pressedBackspace.bind(this)
@@ -70,36 +65,6 @@ export default class MainScreen extends React.Component {
     requestAnimationFrame(this.measureListHolderComponent.bind(this))
   }
 
-  // fires when the user presses the logout button
-  // handlePressLogout () {
-  //   const { dispatch } = this.props
-  //   dispatch(Actions.logout())
-  // }
-
-  // renderLoginButton () {
-  //   return (
-  //     <View style={styles.loginBox}>
-  //       <TouchableOpacity onPress={this.handlePressLogin}>
-  //         <View style={styles.loginButton}>
-  //           <Text style={styles.loginText}>Sign In</Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     </View>
-  //   )
-  // }
-
-  // renderLogoutButton () {
-  //   return (
-  //     <View style={styles.loginBox}>
-  //       <TouchableOpacity onPress={this.handlePressLogout}>
-  //         <View style={styles.loginButton}>
-  //           <Text style={styles.loginText}>Log out</Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     </View>
-  //   )
-  // }
-
   measureListHolderComponent() {
     this.refs.listHolder.measure((ox, oy, width, height) => {
       // TODO - 48?
@@ -118,11 +83,11 @@ export default class MainScreen extends React.Component {
   }
 
   calculateObject(){
-    var subtotal = this.subtotal()
-    var shipping = 0
-    var itemDiscounts = 0
-    var overallDiscount = 0
-    var tax = 0
+    let subtotal = this.subtotal()
+    let shipping = 0
+    let itemDiscounts = 0
+    let overallDiscount = 0
+    let tax = 0
 
     return {
       subtotal: subtotal,
@@ -139,19 +104,19 @@ export default class MainScreen extends React.Component {
   }
 
   subtotal(){
-    var rows = this.state.rows
-    var mappedCents = _.map(rows, (n) => {
+    let rows = this.state.rows
+    let mappedCents = _.map(rows, (n) => {
       return n.cents
     })
     return _.sum(mappedCents)
   }
 
-  pressedNumber(number) {
-    console.log("Pressed number: " + number)
+  pressedButton(button) {
+    console.log("Pressed Button: " + button)
 
-    var rows = this.state.rows
-    var popped = rows.pop()
-    rows.push(this.rowFactory(parseInt(popped.cents + "" + number), popped.discount))
+    let rows = this.state.rows
+    let popped = rows.pop()
+    rows.push(this.rowFactory(parseInt(popped.cents + "" + button), popped.discount))
     this.setRows(rows)
   }
 
@@ -163,7 +128,7 @@ export default class MainScreen extends React.Component {
   pressedClearLast() {
     console.log("Pressed Clear Last")
 
-    var rows = this.state.rows
+    let rows = this.state.rows
     rows.pop()
     rows.pop()
     rows.push(this.rowFactory())
@@ -173,9 +138,9 @@ export default class MainScreen extends React.Component {
   pressedBackspace() {
     console.log("Pressed Backspace")
 
-    var rows = this.state.rows
-    var popped = rows.pop()
-    var lastCents = parseInt(popped.cents.toString().slice(0, -1))
+    let rows = this.state.rows
+    let popped = rows.pop()
+    let lastCents = parseInt(popped.cents.toString().slice(0, -1))
 
     if (isNaN(lastCents)) { lastCents = 0 }
     rows.push(this.rowFactory(lastCents, popped.discount))
@@ -185,7 +150,7 @@ export default class MainScreen extends React.Component {
   pressedAdd() {
     console.log("Pressed Add")
 
-    var rows = this.state.rows
+    let rows = this.state.rows
     console.log(rows)
     if (this.canAddNumberToList(rows)) {
       rows.push(this.rowFactory())
@@ -195,16 +160,16 @@ export default class MainScreen extends React.Component {
 
   // Determines if an operation should succeed or not
   canAddNumberToList() {
-    var rows = this.state.rows
+    let rows = this.state.rows
     return rows[rows.length-1] != 0
   }
 
   pressedDoubleZero() {
     console.log("Pressed Double Zero")
 
-    var rows = this.state.rows
+    let rows = this.state.rows
     if (this.canAddNumberToList()) {
-      var popped = rows.pop()
+      let popped = rows.pop()
 
       rows.push(this.rowFactory(parseInt(popped.cents + "00"), popped.discount))
       rows.push(this.rowFactory())
@@ -219,7 +184,7 @@ export default class MainScreen extends React.Component {
   // TODO - this doesn't work.
   scrollToBottom() {
     console.log("Scrolling to bottom")
-    var ul = this.refs.list
+    let ul = this.refs.list
     console.log(ul.scrollProperties)
     console.log("Scrolling to:", ul.scrollProperties.contentLength - 48)
     ul.scrollTo({y: ul.scrollProperties.contentLength - 48})
@@ -234,8 +199,8 @@ export default class MainScreen extends React.Component {
   }
 
   setDataSource(scroll = false) {
-    var _this = this
-    var object_rows = _.map(this.state.rows, function(n) {
+    let _this = this
+    let object_rows = _.map(this.state.rows, function(n) {
       return {
         title: _this.convertCentsToDollars(n.cents, true)
       }
@@ -254,7 +219,7 @@ export default class MainScreen extends React.Component {
   }
 
   renderItem(item, sectionID, rowID) {
-    var deleteButton = {
+    let deleteButton = {
       text: 'Delete',
       onPress: () => { console.log(item, sectionID, rowID) },
       type: 'delete',
@@ -285,7 +250,7 @@ export default class MainScreen extends React.Component {
   }
 
   convertCentsToDollars(cents, symbol = false) {
-    var converted_float = (cents/100).toFixed(2)
+    let converted_float = (cents/100).toFixed(2)
 
     if (symbol === true) {
       return "$" + converted_float
@@ -296,11 +261,11 @@ export default class MainScreen extends React.Component {
 
   // Button Factory
   renderButton(text, additionalStyles=null, onPress=null) {
-    var buttonStyles = [styles.button]
+    let buttonStyles = [styles.button]
     if (additionalStyles !== null) {
       buttonStyles.push(additionalStyles)
     }
-    var pressEvent = ((onPress == null) ? this.pressedNumber : onPress )
+    let pressEvent = ((onPress == null) ? this.pressedButton : onPress )
 
     return(
       <Button label={text} style={buttonStyles} onPress={pressEvent} />
