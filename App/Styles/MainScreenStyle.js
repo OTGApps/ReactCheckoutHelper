@@ -13,7 +13,15 @@ export default StyleSheet.create({
   },
   listView: {
     flex: 1,
-    backgroundColor: 'yellow'
+    backgroundColor: 'yellow',
+    // Shadows don't work on list views as of now :(
+    // shadowColor: "#000000",
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: -5,
+    //   width: 0
+    // }
   },
   bottomContent: {
     flex: 1
@@ -27,7 +35,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#AAAAAA',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 2,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Colors.silver
   },
   redButton: {
     backgroundColor: Colors.red
