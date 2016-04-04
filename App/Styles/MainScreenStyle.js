@@ -33,13 +33,9 @@ export default StyleSheet.create({
   button: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#AAAAAA',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 2,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: Colors.silver
   },
   redButton: {
     backgroundColor: Colors.red

@@ -261,15 +261,11 @@ export default class MainScreen extends React.Component {
   }
 
   // Button Factory
-  renderButton (text, additionalStyles = null, onPress = null) {
-    let buttonStyles = [styles.button]
-    if (additionalStyles !== null) {
-      buttonStyles.push(additionalStyles)
-    }
-    let pressEvent = ((onPress == null) ? this.pressedButton : onPress)
+  renderButton (text, gradient = null, onPress = null) {
+    const pressEvent = ((onPress == null) ? this.pressedButton : onPress)
 
     return (
-      <Button label={text} style={buttonStyles} onPress={pressEvent} />
+      <Button label={text} style={styles.button} onPress={pressEvent} gradient={gradient} />
     )
   }
 
@@ -294,7 +290,7 @@ export default class MainScreen extends React.Component {
             {this.renderButton('7')}
             {this.renderButton('8')}
             {this.renderButton('9')}
-            {this.renderButton('Clr All', styles.redButton, this.pressedClrAll)}
+            {this.renderButton('Clr All', 'red', this.pressedClrAll)}
           </View>
 
           {/* 2nd Row */}
@@ -302,7 +298,7 @@ export default class MainScreen extends React.Component {
             {this.renderButton('4')}
             {this.renderButton('5')}
             {this.renderButton('6')}
-            {this.renderButton('Clr Last', styles.redButton, this.pressedClearLast)}
+            {this.renderButton('Clr Last', 'red', this.pressedClearLast)}
           </View>
 
           {/* 3rd Row */}
@@ -310,15 +306,15 @@ export default class MainScreen extends React.Component {
             {this.renderButton('1')}
             {this.renderButton('2')}
             {this.renderButton('3')}
-            {this.renderButton('Bksp', styles.redButton, this.pressedBackspace)}
+            {this.renderButton('Bksp', 'red', this.pressedBackspace)}
           </View>
 
           {/* 4th Row */}
           <View style={styles.row}>
             {this.renderButton('0')}
             {this.renderButton('.00', null, this.pressedDoubleZero)}
-            {this.renderButton('Add', styles.greenButton, this.pressedAdd)}
-            {this.renderButton('Disc', styles.blueButton, this.pressedDiscount)}
+            {this.renderButton('Add', 'green', this.pressedAdd)}
+            {this.renderButton('Disc', 'blue', this.pressedDiscount)}
           </View>
 
         </View>
